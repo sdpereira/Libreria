@@ -14,13 +14,11 @@ class CreateAutorsTable extends Migration
     public function up()
     {
         Schema::create('autors', function (Blueprint $table) {
+
             $table->increments('id');
             $table->string('nombre',150);
             $table->string('id_pais',10);
             $table->foreign('id_pais')->references('id')->on('pais');
-
-
-
             $table->timestamps();
         });
     }
@@ -33,5 +31,6 @@ class CreateAutorsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('autors');
+
     }
 }
