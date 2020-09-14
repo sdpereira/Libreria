@@ -100,7 +100,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item nav-dropdown">
+                    <!-- <li class="nav-item nav-dropdown">
                         <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Otros</a>
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
@@ -143,7 +143,7 @@
                                 <a class="nav-link" href="#"><i class="icon-chart"></i> Otros</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link" href="main.html"><i class="icon-book-open"></i> Ayuda <span class="badge badge-danger">PDF</span></a>
                     </li>
