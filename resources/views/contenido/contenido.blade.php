@@ -16,6 +16,7 @@
         <pais></pais>
     </template>
     <template v-if="menu==6">
-        <libros></libros>
+        <libro></libro>
     </template>
+    
 @endsection

@@ -45,7 +45,7 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
                                     </button> &nbsp;
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="EliminarCategoria(objeto)">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="EliminarLibro(objeto)">
                                         <i class="icon-trash"></i>
                                     </button>
                                 </td>
@@ -99,8 +99,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button v-show="accion == 0" type="button" @click="RegistrarCategoria" class="btn btn-primary">Guardar </button>
-                        <button v-show="accion" type="button" @click="ActualizarCategoria" class="btn btn-primary">Actualizar</button>
+                        <button v-show="accion == 0" type="button" @click="RegistrarLibro" class="btn btn-primary">Guardar </button>
+                        <button v-show="accion" type="button" @click="ActualizarLibro" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -124,7 +124,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" @click="EliminarCategoria" class="btn btn-danger">Eliminar</button>
+                        <button type="button" @click="EliminarLibro" class="btn btn-danger">Eliminar</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -141,7 +141,7 @@
             return {
                 arrayDatos: [],
                 nombre: "",
-                idCategoria: 0,
+                idLibro: 0,
                 modal: 0,
                 accion: 0,
                 titulo: "",
@@ -165,48 +165,48 @@
                 //Va a la pagina actual
                 me.pagination.current_page = page;
                 //metodo para traer los datos
-                me.ListarCategoria(page, criterio, buscar);
+                me.ListarLibro(page, criterio, buscar);
             },
 
-            ListarCategoria: function(page, criterio, buscar) {
+            ListarLibro: function(page, criterio, buscar) {
                 let me = this;
-                var url = "/categoria?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
+                var url = "/libro?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
                 axios
                     .get(url)
                     .then(function(response) {
                         var respuesta = response.data;
-                        me.arrayDatos = respuesta.categoria.data;
+                        me.arrayDatos = respuesta.libro.data;
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
             },
-            RegistrarCategoria() {
+            RegistrarLibro() {
                 let me = this;
-                var url = "/categoria/registrar";
+                var url = "/libro/registrar";
                 axios
                     .post(url, {
                         nombre: this.nombre
                     })
                     .then(function(response) {
-                        me.ListarCategoria();
+                        me.ListarLibro();
                         me.mensaje("¡Se guardó correctamente!");
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
             },
-            ActualizarCategoria() {
+            ActualizarLibro() {
                 let me = this;
-                var url = "/categoria/actualizar";
+                var url = "/libro/actualizar";
                 axios
                     .put(url, {
-                        id: this.idCategoria,
+                        id: this.idLibro,
                         nombre: this.nombre
                     })
                     .then(function(response) {
-                        me.ListarCategoria();
+                        me.ListarLibro();
                         me.mensaje("¡Se actualizó correctamente!");
                         me.cerrarModal();
                     })
@@ -214,7 +214,7 @@
                         console.log(error);
                     });
             },
-            EliminarCategoria(data = []) {
+            EliminarLibro(data = []) {
                 let me = this;
                 Swal.fire({
                     title: "¿Estás seguro?",
@@ -227,13 +227,13 @@
                     confirmButtonText: "¡Si, bórralo!"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        var url = "/categoria/eliminar";
+                        var url = "/libro/eliminar";
                         axios
                             .post(url, {
                                 id: data["id"]
                             })
                             .then(function(response) {
-                                me.ListarCategoria();
+                                me.ListarLibro();
                             })
                             .catch(function(error) {
                                 console.log(error);
@@ -258,7 +258,7 @@
                     case "editar":
                         this.titulo = "Editar Categoria";
                         this.accion = 1;
-                        this.idCategoria = data["id"];
+                        this.idLibro = data["id"];
                         this.nombre = data["nombre"];
                         break;
 
@@ -316,7 +316,7 @@
         mounted() {
             console.log("Component mounted.");
             
-            this.ListarCategoria(1, this.criterio, this.buscar);
+            this.ListarLibro(1, this.criterio, this.buscar);
         }
     };
 

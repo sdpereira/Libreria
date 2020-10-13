@@ -21,6 +21,7 @@ Route::put('categoria/actualizar', 'CategoriaController@update'); //Actualizar
 Route::post('categoria/eliminar', 'CategoriaController@destroy'); //Eliminar
 
 Route::get('editorial', 'EditorialController@index');
+
 Route::post('editorial/registrar', 'EditorialController@store');
 Route::put('editorial/actualizar', 'EditorialController@update');
 Route::post('editorial/eliminar', 'EditorialController@destroy');
@@ -31,6 +32,7 @@ Route::put('idioma/actualizar', 'IdiomaController@update');
 Route::post('idioma/eliminar', 'IdiomaController@destroy');
 
 Route::get('pais', 'PaisController@index');
+Route::get('selectpais', 'PaisController@getPais');
 // Route::post('/pais/registrar', 'PaisController@store');
 Route::put('pais/actualizar', 'PaisController@update');
 Route::post('/pais/eliminar', 'PaisController@destroy');
@@ -39,3 +41,8 @@ Route::get('autor', 'AutorController@index');
 Route::post('/autor/registrar', 'AutorController@store');
 Route::put('autor/actualizar', 'AutorController@update');
 Route::post('/autor/eliminar', 'AutorController@destroy');
+
+Route::get('libro', 'LibroController@index');
+Route::post('/libro/registrar', 'LibroController@store');
+Route::put('libro/actualizar', 'LibroController@update');
+Route::post('/libro/eliminar', 'LibroController@destroy');

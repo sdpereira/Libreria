@@ -40,7 +40,7 @@
                     <tbody>
                         <tr v-for="objeto in arrayDatos" :key="objeto.id">
                             <td v-text="objeto.nombre"></td>
-                             <td v-text="objeto.id_pais"></td>
+                             <td v-text="objeto.nombrepais"></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                     <i class="icon-pencil"></i>
@@ -101,10 +101,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="email-input">Pais</label>
                             <div class="col-md-9">
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option></option>
-                                    <option></option>
-                                    <option></option>
+                                <select class="form-control" v-modal="idPais" id="exampleFormControlSelect1">
+                                    <option v-for="objeto in arrayPais" :key="objeto.id" v-text="objeto.nombre"></option>
                                 </select>
                                 <span class="help-block">(*) Seleccione el país</span>
                             </div>
@@ -164,7 +162,10 @@ export default {
             idAutor: 0,
             modal: 0,
             accion: 0,
-            titulo: ""
+            titulo: "",
+            arrayPais:[],
+            idPais:0
+
         };
     },
   methods: {
@@ -181,9 +182,36 @@ export default {
                     console.log(error);
                 });
         },
+                getPais(){
+            let me = this;
+            var url = "/selectpais";
+            axios.get(url).then(function(response){
+                var respuesta = response.data;
+                me.arrayPais = respuesta.pais;
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        },
+                RegistroAutor(){
+            let me = this;
+            var url = "/autor/registrar";
+            axios.post(url,{
+                nombre:this.nombre,
+                idPais:this.idPais
+            }) 
+            .then(function(response){
+                alert("se registro correctamente");
+                me.listPer();
+            })
+            .catch(function(error){
+                console.log(error);
+            })
+        },
   },
     mounted() {
         console.log("Component mounted.");
+        this.getPais();
         this.ListarAutor();
     }
 };

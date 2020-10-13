@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Pais;
+use Illuminate\Http\Request;
 
 class PaisController extends Controller
 {
     public function index(Request $request)
     {
-        $buscar    = $request->nombre;
-        $criterio  = $request->criterio;
-        $pais = Pais::orderBy('nombre', 'asc')->get();
+        $buscar   = $request->nombre;
+        $criterio = $request->criterio;
+        $pais     = Pais::orderBy('nombre', 'asc')->get();
         if ($buscar == '') {
             $pais = Pais::orderBy('nombre', 'asc')->paginate(5);
         } else {
@@ -27,24 +27,32 @@ class PaisController extends Controller
                 'to'           => $pais->lastItem(),
 
             ],
-            'pais'  => $pais,
+            'pais'       => $pais,
+        ];
+    }
+    public function getPais(Request $request)
+    {
+        $pais = Pais::select('id', 'nombre')
+            ->orderBy('nombre', 'asc')->get();
+        return [
+            'pais' => $pais
         ];
     }
 
     public function store(Request $request)
     {
-        $pais = new Pais();
+        $pais         = new Pais();
         $pais->nombre = $request->nombre;
         $pais->save();
     }
 
     public function update(Request $request)
     {
-        $pais = Pais::findOrFail($request->id);
+        $pais         = Pais::findOrFail($request->id);
         $pais->nombre = $request->nombre;
         $pais->save();
     }
-    
+
     public function destroy(Request $request)
     {
         $pais = Pais::findOrFail($request->id);

@@ -31,6 +31,15 @@ class CategoriaController extends Controller
             'categoria'  => $categoria,
         ];
     }
+    public function getCategoria(Request $request)
+    {
+        $categoria=Categoria::select('id','nombre')
+        ->orderBy('nombre','asc')
+        ->get();
+        return[
+          'categoria'=>$categoria  
+        ];
+    }
 
     public function store(Request $request)
     {
