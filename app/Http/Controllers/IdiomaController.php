@@ -31,11 +31,12 @@ class IdiomaController extends Controller
             'idioma'     => $idioma,
         ];
     }
-    public function getIdioma(Request $request){
-        $idioma=Idioma::selecte('id','nombre')
-        ->orderBy('nombre','asc')->get();
-        return[
-'idioma'=>$idioma
+    public function getIdioma(Request $request)
+    {
+        $idioma = Idioma::selecte('id', 'nombre')
+            ->orderBy('nombre', 'asc')->get();
+        return [
+            'idioma' => $idioma,
         ];
     }
 
@@ -59,5 +60,3 @@ class IdiomaController extends Controller
         $idioma->delete();
     }
 }
-
-

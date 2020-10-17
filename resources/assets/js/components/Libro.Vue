@@ -10,7 +10,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fas fa-bookmark"></i> Categorías
+                    <i class="fa fas fa-bookmark"></i> Libros
                     <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal"
                         @click="abrirModal('guardar')">
                         <i class="icon-plus"></i>&nbsp;Nuevo
@@ -35,12 +35,32 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Codigo</th>
+                                <th>Cantida</th>
+                                <th>Año publicación</th>
+                                <th>Numero páginas</th>
+                                <th>Ubicación</th>
+                                <th>Edición</th>
+                                <th>Categoria</th>
+                                <th>Idioma</th>
+                                <th>Autor</th>
+                                <th>Editorial</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="objeto in arrayDatos" :key="objeto.id">
                                 <td v-text="objeto.nombre"></td>
+                                 <td v-text="objeto.codigo"></td>
+                                  <td v-text="objeto.cant"></td>
+                                   <td v-text="objeto.año_publi"></td>
+                                    <td v-text="objeto.num_pag"></td>
+                                     <td v-text="objeto.ubicacion"></td>
+                                      <td v-text="objeto.edicion"></td>
+                                       <td v-text="objeto.nomCat"></td>
+                                        <td v-text="objeto.nomEdi"></td>
+                                         <td v-text="objeto.nomIdi"></td>
+                                          <td v-text="objeto.nomAut"></td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
@@ -52,7 +72,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <nav>
+               <!-- <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#"
@@ -68,7 +88,7 @@
                                     @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                 </div>
             </div>
             <!-- Fin ejemplo de tabla Listado -->
@@ -91,8 +111,87 @@
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
                                         placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la
-                                        categoría</span>
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                </div>
+                            </div>
+                             <div class="form-group row">
+                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-9">
+                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
+                                        placeholder="Nombre de categoría" />
+                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
                                 </div>
                             </div>
                         </form>
@@ -182,6 +281,58 @@
                         console.log(error);
                     });
             },
+                    getCategoria() {
+            let me = this
+            var url = '/selectCategoria'
+            axios
+                .get(url)
+                .then(function (response) {
+                    var respuesta = response.data
+                    me.arrayPais = respuesta.categoria
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        },
+                getEditorial() {
+            let me = this
+            var url = '/selectEditorial'
+            axios
+                .get(url)
+                .then(function (response) {
+                    var respuesta = response.data
+                    me.arrayEditoriales = respuesta.editorials
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        },
+                getAutores() {
+            let me = this
+            var url = '/selectAutores'
+            axios
+                .get(url)
+                .then(function (response) {
+                    var respuesta = response.data
+                    me.arrayAutores= respuesta.autores
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        },
+                getPais() {
+            let me = this
+            var url = '/selectPais'
+            axios
+                .get(url)
+                .then(function (response) {
+                    var respuesta = response.data
+                    me.arrayPais = respuesta.pais
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        },
             RegistrarLibro() {
                 let me = this;
                 var url = "/libro/registrar";

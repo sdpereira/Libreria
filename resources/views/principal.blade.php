@@ -71,6 +71,7 @@
         </header>
         <div class="app-body">
             <!-- Contenido Principal -->
+            
             @include('plantilla.sidebar')
             @yield('contenido')
         </div>

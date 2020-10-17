@@ -13,7 +13,8 @@
                     <i class="fa fas fa-bookmark"></i> Categorías
                     <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal"
                         @click="abrirModal('guardar')">
-                        <i class="icon-plus"></i>&nbsp;Nuevo
+                        <i class="icon-plus"></i>&nbsp;
+                        Nuevo
                     </button>
                 </div>
                 <div class="card-body">
@@ -24,7 +25,7 @@
                                     <option value="nombre">Nombre</option>
                                 </select>
                                 <input type="text" id="texto" name="texto" v-model="buscar" class="form-control"
-                                    placeholder="Texto a buscar" />
+                                    placeholder="Texto a buscar">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i> Buscar
                                 </button>
@@ -90,7 +91,7 @@
                                 <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                 <div class="col-md-9">
                                     <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
+                                        placeholder="Nombre de categoría">
                                     <span class="help-block">(*) Ingrese el nombre de la
                                         categoría</span>
                                 </div>

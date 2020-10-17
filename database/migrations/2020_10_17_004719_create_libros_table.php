@@ -24,12 +24,12 @@ class CreateLibrosTable extends Migration
             $table->string('edicion',5);
             $table->integer('id_categoria')->unsigned();
             $table->integer('id_idioma')->unsigned();
-            $table->integer('id_autor')->unsigned();
+            $table->integer('id_autores')->unsigned();
             $table->integer('id_editorial')->unsigned();
 
             $table->foreign('id_categoria')->references('id')->on('categorias');
             $table->foreign('id_idioma')->references('id')->on('idiomas');
-            $table->foreign('id_autor')->references('id')->on('autors');
+            $table->foreign('id_autores')->references('id')->on('autores');
             $table->foreign('id_editorial')->references('id')->on('editorials');
             $table->timestamps();
         });
