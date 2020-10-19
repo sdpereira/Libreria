@@ -164,7 +164,7 @@ export default {
                 .get(url)
                 .then(function (response) {
                     var respuesta = response.data;
-                    me.arrayDatos = respuesta.editorial.data;
+                    me.arrayDatos = respuesta.editorials.data;
                     me.pagination = respuesta.pagination;
                 })
                 .catch(function (error) {

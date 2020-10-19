@@ -7,93 +7,104 @@ use Illuminate\Http\Request;
 
 class LibroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // $buscar   = $request->nombre;
-        // $criterio = $request->criterio;
+        $buscar   = $request->nombre;
+        $criterio = $request->criterio;
+        $libros = Libro::orderBy('nombre', 'asc')->get();
+        
 
-        // if ($buscar == '') {
-        //     $libro = Categoria::orderBy('nombre', 'asc')->paginate(10);
-        // } else {
-        //     $libro = Categoria::where('criterio', '=', $buscar) - orderBy('nombre', 'asc')->paginate(10);
-        // }
 
-        // return [
-        //     'pagination' => [
-        //         'total'        => $libro->total(),
-        //         'current_page' => $libro->currentPage(),
-        //         'per_page'     => $libro->perPage(),
-        //         'last_page'    => $libro->lastPage(),
-        //         'from'         => $libro->firstItem(),
-        //         'to'           => $libro->lastItem(),
+        if ($buscar == '') {
+            $libros = Libro::join('categorias','libros.id_categoria','=','categorias.id')
+        ->join('idiomas', 'libros.id_idioma', '=', 'idiomas.id')
+        ->join('autores', 'libros.id_autores', '=', 'autores.id')
+        ->join('editorials', 'libros.id_editorial', '=', 'editorials.id')
+            ->select('libros.id',
+            'libros.nombre',
+            'libros.codigo',
+            'libros.cant',
+            'libros.ano_publi',
+            'libros.num_pag',
+            'libros.ubicacion',
+            'libros.edicion',
+                'categorias.nombre as nomCat',
+                'idiomas.nombre as nomIdi',
+                'autores.nombre as nomAut',
+                'editorials.nombre as nomEdi'
+            ) ->orderBy('nombre','asc')->paginate(4);
+        } else {
+            $libros = Libro::join('categorias','libros.id_categoria','=','categorias.id')
+        ->join('idiomas', 'libros.id_idioma', '=', 'idiomas.id')
+        ->join('autores', 'libros.id_autores', '=', 'autores.id')
+        ->join('editorials', 'libros.id_editorial', '=', 'editorials.id')
+            ->select('libros.id',
+            'libros.nombre',
+            'libros.codigo',
+            'libros.cant',
+            'libros.ano_publi',
+            'libros.num_pag',
+            'libros.ubicacion',
+            'libros.edicion',
+                'categorias.nombre as nomCat',
+                'idiomas.nombre as nomIdi',
+                'autores.nombre as nomAut',
+                'editorials.nombre as nomEdi'
+            ) ->orderBy('nombre','asc')->paginate(4);
+        }
 
-        //     ],
-        //     'libro'  => $libro,
-        // ];
-
-        $libro = Libro::join(
-            'categoria',
-            'libro.id_categoria',
-            '=',
-            'categoria.id'
-        )
-            ->join('editorials', 'libro.id_editorial', '=', 'editorials.id')
-            ->join('categoria', 'libro.id_categoria', '=', 'categoria.id')
-            ->join('idioma', 'libro.id_idioma', '=', 'idioma.id')
-            ->join('autores', 'libro.id_autores', '=', 'autores.id')
-            ->select(
-                'libro.nombre as nomLib',
-                'categoria.nombre as nomCat',
-                'editorials.nombre as nomEdi',
-                'idioma.nombre as nomIdi',
-                'autores.nombre as nomAut'
-            )
-            ->orderBy('nombre','asc')->get();
         return [
-            'libro' => $libro,
+            'pagination' => [
+                'total'        => $libros->total(),
+                'current_page' => $libros->currentPage(),
+                'per_page'     => $libros->perPage(),
+                'last_page'    => $libros->lastPage(),
+                'from'         => $libros->firstItem(),
+                'to'           => $libros->lastItem(),
+
+            ],
+            'libros'  => $libros,
         ];
     }
 
     public function store(Request $request)
     {
-        $libro = new Libro();
-        $libro->nombre = $request->nombre;
-        $libro->codigo = $request->codigo;
-        $libro->cant = $request->cant;
-        $libro->cant = $request->cant;
-        $libro->ano_publi = $request->ano_publi;
-        $libro->num_pag = $request->num_pag;
-        $libro->ubicacion = $request->ubicacion;
-        $libro->edicion = $request->edicion;
-        $libro->id_categoria = $request->id_categoria;
-        $libro->id_idioma = $request->id_idioma;
-        $libro->id_autores = $request->id_autores;
-        $libro->id_editorial = $request->id_editorial;
+        $libros = new Libro();
+        $libros->nombre = $request->nombre;
+        $libros->codigo = $request->codigo;
+        $libros->cant = $request->cant;
+        $libros->ano_publi = $request->ano_publi;
+        $libros->num_pag = $request->num_pag;
+        $libros->ubicacion = $request->ubicacion;
+        $libros->edicion = $request->edicion;
+        $libros->id_categoria = $request->id_categoria;
+        $libros->id_idioma = $request->id_idioma;
+        $libros->id_autores = $request->id_autores;
+        $libros->id_editorial = $request->id_editorial;
 
-        $libro->save();
+        $libros->save();
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $libro = Libro::fillOrFail($request->$id);
-        $libro->nombre = $request->nombre;
-        $libro->codigo = $request->codigo;
-        $libro->cant = $request->cant;
-        $libro->cant = $request->cant;
-        $libro->ano_publi = $request->ano_publi;
-        $libro->num_pag = $request->num_pag;
-        $libro->ubicacion = $request->ubicacion;
-        $libro->edicion = $request->edicion;
-        $libro->id_categoria = $request->id_categoria;
-        $libro->id_idioma = $request->id_idioma;
-        $libro->id_autores = $request->id_autores;
-        $libro->id_editorial = $request->id_editorial;
-        $libro->save();
+        $libros = Libro::findOrFail($request->id);
+        $libros->nombre = $request->nombre;
+        $libros->codigo = $request->codigo;
+        $libros->cant = $request->cant;
+        $libros->ano_publi = $request->ano_publi;
+        $libros->num_pag = $request->num_pag;
+        $libros->ubicacion = $request->ubicacion;
+        $libros->edicion = $request->edicion;
+        $libros->id_categoria = $request->id_categoria;
+        $libros->id_idioma = $request->id_idioma;
+        $libros->id_autores = $request->id_autores;
+        $libros->id_editorial = $request->id_editorial;
+        $libros->save();
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $libro = Libro::fillOrFail($request->$id);
-        $libro->delete();
+        $libros = Libro::findOrFail($request->id);
+        $libros->delete();
     }
 }

@@ -33,7 +33,7 @@ class IdiomaController extends Controller
     }
     public function getIdioma(Request $request)
     {
-        $idioma = Idioma::selecte('id', 'nombre')
+        $idioma = Idioma::select('id', 'nombre')
             ->orderBy('nombre', 'asc')->get();
         return [
             'idioma' => $idioma,

@@ -12,43 +12,51 @@ class EditorialController extends Controller
     {
         $buscar    = $request->nombre;
         $criterio  = $request->criterio;
-        $editorial = Editorial::orderBy('nombre', 'asc')->get();
+        $editorials = Editorial::orderBy('nombre', 'asc')->get();
         if ($buscar == '') {
-            $editorial = Editorial::orderBy('nombre', 'asc')->paginate(20);
+            $editorials = Editorial::orderBy('nombre', 'asc')->paginate(20);
         } else {
-            $editorial = Editorial::where('criterio', '=', $buscar) - orderBy('nombre', 'asc')->paginate(4);
+            $editorials = Editorial::where('criterio', '=', $buscar) - orderBy('nombre', 'asc')->paginate(4);
         }
         return [
             'pagination' => [
-                'total'        => $editorial->total(),
-                'current_page' => $editorial->currentPage(),
-                'per_page'     => $editorial->perPage(),
-                'last_page'    => $editorial->lastPage(),
-                'from'         => $editorial->firstItem(),
-                'to'           => $editorial->lastItem(),
+                'total'        => $editorials->total(),
+                'current_page' => $editorials->currentPage(),
+                'per_page'     => $editorials->perPage(),
+                'last_page'    => $editorials->lastPage(),
+                'from'         => $editorials->firstItem(),
+                'to'           => $editorials->lastItem(),
 
             ],
-            'editorial'  => $editorial,
+            'editorials'  => $editorials,
+        ];
+    }
+    public function getEditorial(Request $request)
+    {
+        $editorials = Editorial::select('id', 'nombre')
+            ->orderBy('nombre', 'asc')->get();
+        return [
+            'editorials' => $editorials,
         ];
     }
 
     public function store(Request $request)
     {
-        $editorial         = new Editorial();
-        $editorial->nombre = $request->nombre;
-        $editorial->save();
+        $editorials         = new Editorial();
+        $editorials->nombre = $request->nombre;
+        $editorials->save();
     }
 
     public function update(Request $request)
     {
-        $editorial         = Editorial::findOrFail($request->id);
-        $editorial->nombre = $request->nombre;
-        $editorial->save();
+        $editorials         = Editorial::findOrFail($request->id);
+        $editorials->nombre = $request->nombre;
+        $editorials->save();
     }
 
     public function destroy(Request $request)
     {
-        $editorial = Editorial::findOrFail($request->id);
-        $editorial->delete();
+        $editorials = Editorial::findOrFail($request->id);
+        $editorials->delete();
     }
 }

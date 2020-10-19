@@ -55,7 +55,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <!-- <nav>
+                <nav>
                 <ul class="pagination">
                     <li class="page-item" v-if="pagination.current_page > 1">
                     <a
@@ -85,7 +85,7 @@
                     >Sig</a>
                         </li>
                     </ul>
-            </nav> -->
+            </nav>
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" v-model="id_pais" id="exampleFormControlSelect1">
-                                    <option v-for="objeto in arrayPais" :key="objeto.id" v-text="objeto.id"></option>
+                                    <option v-for="objeto in arrayPais" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
                                 </select>
                                 <span class="help-block">(*) Seleccione el pais</span>
                             </div>
@@ -178,7 +178,6 @@ export default {
         return {
             arrayDatos: [],
             nombre: '',
-            id_pais: 0,
             idAutores: 0,
             nomPais: '',
             modal: 0,
@@ -187,15 +186,15 @@ export default {
 
             arrayPais: [],
             id_pais: 0,
-            //variables de pagination
-            // pagination:{
-            //     total:0,
-            //     current_page:0,
-            //     su_page:0,
-            //     last_page:0,
-            //     from:0,
-            //     to:0
-            // },
+            // variables de pagination
+            pagination:{
+                total:0,
+                current_page:0,
+                su_page:0,
+                last_page:0,
+                from:0,
+                to:0
+            },
             offset: 3,
             buscar: '',
             criterio: 'nombre',
@@ -218,8 +217,8 @@ export default {
                 .get(url)
                 .then(function (response) {
                     var respuesta = response.data
-                    me.arrayDatos = respuesta.autores
-                    // me.pagination = respuesta.pagination;
+                    me.arrayDatos = respuesta.autores.data;
+                    me.pagination = respuesta.pagination;
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -377,7 +376,7 @@ export default {
     },
     mounted() {
         console.log('Component mounted.')
-        this.getPais()
+        this.getPais();
         this.ListarAutores(1, this.criterio, this.buscar)
     },
 }

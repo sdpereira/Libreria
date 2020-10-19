@@ -50995,7 +50995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var url = "/editorial?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayDatos = respuesta.editorial.data;
+                me.arrayDatos = respuesta.editorials.data;
                 me.pagination = respuesta.pagination;
             }).catch(function (error) {
                 console.log(error);
@@ -53495,8 +53495,6 @@ exports.push([module.i, "\n.modal-content {\r\n    width: 100% !important;\r\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -53674,20 +53672,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
-        var _ref;
-
-        return _ref = {
+        return {
             arrayDatos: [],
             nombre: '',
-            id_pais: 0,
             idAutores: 0,
             nomPais: '',
             modal: 0,
             titulo: '',
             accion: 0,
 
-            arrayPais: []
-        }, _defineProperty(_ref, 'id_pais', 0), _defineProperty(_ref, 'offset', 3), _defineProperty(_ref, 'buscar', ''), _defineProperty(_ref, 'criterio', 'nombre'), _ref;
+            arrayPais: [],
+            id_pais: 0,
+            // variables de pagination
+            pagination: {
+                total: 0,
+                current_page: 0,
+                su_page: 0,
+                last_page: 0,
+                from: 0,
+                to: 0
+            },
+            offset: 3,
+            buscar: '',
+            criterio: 'nombre'
+        };
     },
 
     methods: {
@@ -53705,8 +53713,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var url = '/autor?page=' + page + '&criterio=' + criterio + '&buscar=' + buscar;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayDatos = respuesta.autores;
-                // me.pagination = respuesta.pagination;
+                me.arrayDatos = respuesta.autores.data;
+                me.pagination = respuesta.pagination;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -53950,7 +53958,90 @@ var render = function() {
                 0
               )
             ]
-          )
+          ),
+          _vm._v(" "),
+          _c("nav", [
+            _c(
+              "ul",
+              { staticClass: "pagination" },
+              [
+                _vm.pagination.current_page > 1
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.cambiarPagina(
+                                _vm.pagination.current_page - 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Ant")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.pagesNumber, function(page) {
+                  return _c(
+                    "li",
+                    {
+                      key: page,
+                      staticClass: "page-item",
+                      class: [page == _vm.isActived ? "active" : ""]
+                    },
+                    [
+                      _c("a", {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        domProps: { textContent: _vm._s(page) },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.cambiarPagina(
+                              page,
+                              _vm.buscar,
+                              _vm.criterio
+                            )
+                          }
+                        }
+                      })
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                _vm.pagination.current_page < _vm.pagination.last_page
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.cambiarPagina(
+                                _vm.pagination.current_page + 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Sig")]
+                      )
+                    ])
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
         ])
       ])
     ]),
@@ -54108,7 +54199,10 @@ var render = function() {
                           _vm._l(_vm.arrayPais, function(objeto) {
                             return _c("option", {
                               key: objeto.id,
-                              domProps: { textContent: _vm._s(objeto.id) }
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
                             })
                           }),
                           0
@@ -54692,6 +54786,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -54699,12 +54796,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         return _ref = {
             arrayDatos: [],
-            nombre: "",
             idLibro: 0,
+            nombre: "",
+            codigo: "",
+            cant: "",
+            ano_publi: "",
+            num_pag: "",
+            ubicacion: "",
+            edicion: "",
             modal: 0,
             accion: 0,
             titulo: "",
             buscar: "",
+            arrayCategoria: [],
+            id_categoria: 0,
+            arrayIdioma: [],
+            id_idioma: 0,
+            arrayAutores: [],
+            id_autores: 0,
+            arrayEditorial: [],
+            id_editorial: 0,
+
             pagination: {
                 total: 0,
                 current_page: 0,
@@ -54732,7 +54844,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var url = "/libro?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayDatos = respuesta.libro.data;
+                me.arrayDatos = respuesta.libros.data;
+
                 me.pagination = respuesta.pagination;
             }).catch(function (error) {
                 console.log(error);
@@ -54743,17 +54856,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var url = '/selectCategoria';
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayPais = respuesta.categoria;
+                me.arrayCategoria = respuesta.categoria;
             }).catch(function (error) {
                 console.log(error);
             });
         },
-        getEditorial: function getEditorial() {
+        getIdioma: function getIdioma() {
             var me = this;
-            var url = '/selectEditorial';
+            var url = '/selectIdioma';
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayEditoriales = respuesta.editorials;
+                me.arrayIdioma = respuesta.idioma;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -54768,12 +54881,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 console.log(error);
             });
         },
-        getPais: function getPais() {
+        getEditorial: function getEditorial() {
             var me = this;
-            var url = '/selectPais';
+            var url = '/selectEditorial';
             axios.get(url).then(function (response) {
                 var respuesta = response.data;
-                me.arrayPais = respuesta.pais;
+                me.arrayEditorial = respuesta.editorials;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -54782,7 +54895,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var me = this;
             var url = "/libro/registrar";
             axios.post(url, {
-                nombre: this.nombre
+                nombre: this.nombre,
+                codigo: this.codigo,
+                cant: this.cant,
+                ano_publi: this.ano_publi,
+                num_pag: this.num_pag,
+                ubicacion: this.ubicacion,
+                edicion: this.edicion,
+                id_categoria: this.id_categoria,
+                id_idioma: this.id_idioma,
+                id_autores: this.id_autores,
+                id_editorial: this.id_editorial
             }).then(function (response) {
                 me.ListarLibro();
                 me.mensaje("¡Se guardó correctamente!");
@@ -54795,7 +54918,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var url = "/libro/actualizar";
             axios.put(url, {
                 id: this.idLibro,
-                nombre: this.nombre
+                nombre: this.nombre,
+                codigo: this.codigo,
+                cant: this.cant,
+                ano_publi: this.ano_publi,
+                num_pag: this.num_pag,
+                ubicacion: this.ubicacion,
+                edicion: this.edicion,
+                id_categoria: this.id_categoria,
+                id_idioma: this.id_idioma,
+                id_autores: this.id_autores,
+                id_editorial: this.id_editorial
             }).then(function (response) {
                 me.ListarLibro();
                 me.mensaje("¡Se actualizó correctamente!");
@@ -54836,17 +54969,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             switch (accion) {
                 case "guardar":
-                    this.titulo = "Registrar Categoria";
+                    this.titulo = "Registrar Libro";
                     this.accion = 0;
                     this.limpiar();
 
                     break;
 
                 case "editar":
-                    this.titulo = "Editar Categoria";
+                    this.titulo = "Editar Libro";
                     this.accion = 1;
                     this.idLibro = data["id"];
                     this.nombre = data["nombre"];
+                    this.codigo = data["codigo"];
+                    this.cant = data["cant"];
+                    this.ano_publi = data["ano_publi"];
+                    this.num_pag = data["num_pag"];
+                    this.ubicacion = data["ubicacion"];
+                    this.edicion = data["edicion"];
+                    this.id_categoria = data["id"];
+                    this.id_idioma = data["id"];
+                    this.id_autores = data["id"];
+                    this.id_editorial = data["id"];
                     break;
 
                 default:
@@ -54901,7 +55044,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     mounted: function mounted() {
         console.log("Component mounted.");
-
+        this.getCategoria();
+        this.getIdioma();
+        this.getAutores();
+        this.getEditorial();
         this.ListarLibro(1, this.criterio, this.buscar);
     }
 });
@@ -55001,7 +55147,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(objeto.año_publi) }
+                      domProps: { textContent: _vm._s(objeto.ano_publi) }
                     }),
                     _vm._v(" "),
                     _c("td", {
@@ -55021,15 +55167,15 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", {
-                      domProps: { textContent: _vm._s(objeto.nomEdi) }
-                    }),
-                    _vm._v(" "),
-                    _c("td", {
                       domProps: { textContent: _vm._s(objeto.nomIdi) }
                     }),
                     _vm._v(" "),
                     _c("td", {
                       domProps: { textContent: _vm._s(objeto.nomAut) }
+                    }),
+                    _vm._v(" "),
+                    _c("td", {
+                      domProps: { textContent: _vm._s(objeto.nomEdi) }
                     }),
                     _vm._v(" "),
                     _c("td", [
@@ -55066,7 +55212,90 @@ var render = function() {
                 0
               )
             ]
-          )
+          ),
+          _vm._v(" "),
+          _c("nav", [
+            _c(
+              "ul",
+              { staticClass: "pagination justify-content-center" },
+              [
+                _vm.pagination.current_page > 1
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.cambiarPagina(
+                                _vm.pagination.current_page - 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Ant")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.pagesNumber, function(page) {
+                  return _c(
+                    "li",
+                    {
+                      key: page,
+                      staticClass: "page-item",
+                      class: [page == _vm.isActived ? "active" : ""]
+                    },
+                    [
+                      _c("a", {
+                        staticClass: "page-link",
+                        attrs: { href: "#" },
+                        domProps: { textContent: _vm._s(page) },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.cambiarPagina(
+                              page,
+                              _vm.buscar,
+                              _vm.criterio
+                            )
+                          }
+                        }
+                      })
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                _vm.pagination.current_page < _vm.pagination.last_page
+                  ? _c("li", { staticClass: "page-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "page-link",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.cambiarPagina(
+                                _vm.pagination.current_page + 1,
+                                _vm.buscar,
+                                _vm.criterio
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Sig")]
+                      )
+                    ])
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
         ])
       ])
     ]),
@@ -55131,13 +55360,13 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
                         [_vm._v("Nombre")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
+                      _c("div", { staticClass: "col-md-10" }, [
                         _c("input", {
                           directives: [
                             {
@@ -55152,7 +55381,7 @@ var render = function() {
                             type: "text",
                             id: "nombre",
                             name: "nombre",
-                            placeholder: "Nombre de categoría"
+                            placeholder: "Nombre del libro"
                           },
                           domProps: { value: _vm.nombre },
                           on: {
@@ -55166,7 +55395,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Ingrese el nombre del libro")
                         ])
                       ])
                     ]),
@@ -55175,42 +55404,84 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [_vm._v("Código")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
+                              value: _vm.codigo,
+                              expression: "codigo"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
+                            id: "codigo",
+                            name: "codigo",
+                            placeholder: "Código"
                           },
-                          domProps: { value: _vm.nombre },
+                          domProps: { value: _vm.codigo },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.nombre = $event.target.value
+                              _vm.codigo = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Ingrese el código")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-2 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Cantidad")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.cant,
+                              expression: "cant"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "cant",
+                            name: "cant",
+                            placeholder: "Cantidad"
+                          },
+                          domProps: { value: _vm.cant },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.cant = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "help-block" }, [
+                          _vm._v("(*) Ingrese la cantidad")
                         ])
                       ])
                     ]),
@@ -55219,42 +55490,84 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [_vm._v("Año publicación")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
+                              value: _vm.ano_publi,
+                              expression: "ano_publi"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
+                            type: "date",
+                            id: "ano_publi",
+                            name: "ano_publi",
+                            placeholder: "Año de publicación"
                           },
-                          domProps: { value: _vm.nombre },
+                          domProps: { value: _vm.ano_publi },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.nombre = $event.target.value
+                              _vm.ano_publi = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Ingrese el año de publicación")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-2 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Número páginas")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.num_pag,
+                              expression: "num_pag"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "num_pag",
+                            name: "num_pag",
+                            placeholder: "Numero de páginas"
+                          },
+                          domProps: { value: _vm.num_pag },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.num_pag = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "help-block" }, [
+                          _vm._v("(*) Ingrese el número de páginas")
                         ])
                       ])
                     ]),
@@ -55263,42 +55576,84 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [_vm._v("Ubicación")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("input", {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
+                              value: _vm.ubicacion,
+                              expression: "ubicacion"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: {
                             type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
+                            id: "ubicacion",
+                            name: "ubicacion",
+                            placeholder: "Ubicación"
                           },
-                          domProps: { value: _vm.nombre },
+                          domProps: { value: _vm.ubicacion },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.nombre = $event.target.value
+                              _vm.ubicacion = $event.target.value
                             }
                           }
                         }),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Ingrese la ubicación")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-2 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [_vm._v("Edición")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.edicion,
+                              expression: "edicion"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "edicion",
+                            name: "edicion",
+                            placeholder: "Edición"
+                          },
+                          domProps: { value: _vm.edicion },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.edicion = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "help-block" }, [
+                          _vm._v("(*) Ingrese la edición")
                         ])
                       ])
                     ]),
@@ -55307,42 +55662,120 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [
+                          _vm._v(
+                            "\n                            Categoría\n                        "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.id_categoria,
+                                expression: "id_categoria"
                               }
-                              _vm.nombre = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "exampleFormControlSelect1" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.id_categoria = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        }),
+                          },
+                          _vm._l(_vm.arrayCategoria, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Seleccione la categoría")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-2 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Idioma\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.id_idioma,
+                                expression: "id_idioma"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "exampleFormControlSelect2" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.id_idioma = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          _vm._l(_vm.arrayIdioma, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "help-block" }, [
+                          _vm._v("(*) Seleccione el idioma")
                         ])
                       ])
                     ]),
@@ -55351,262 +55784,120 @@ var render = function() {
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [
+                          _vm._v(
+                            "\n                            Autor\n                        "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.id_autores,
+                                expression: "id_autores"
                               }
-                              _vm.nombre = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "exampleFormControlSelect3" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.id_autores = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        }),
+                          },
+                          _vm._l(_vm.arrayAutores, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Seleccione el autor")
                         ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
-                          staticClass: "col-md-3 form-control-label",
+                          staticClass: "col-md-2 form-control-label",
                           attrs: { for: "text-input" }
                         },
-                        [_vm._v("Nombre")]
+                        [
+                          _vm._v(
+                            "\n                            Editorial\n                        "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.id_editorial,
+                                expression: "id_editorial"
                               }
-                              _vm.nombre = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "exampleFormControlSelect4" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.id_editorial = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        }),
+                          },
+                          _vm._l(_vm.arrayEditorial, function(objeto) {
+                            return _c("option", {
+                              key: objeto.id,
+                              domProps: {
+                                value: objeto.id,
+                                textContent: _vm._s(objeto.nombre)
+                              }
+                            })
+                          }),
+                          0
+                        ),
                         _vm._v(" "),
                         _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group row" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "col-md-3 form-control-label",
-                          attrs: { for: "text-input" }
-                        },
-                        [_vm._v("Nombre")]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-9" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nombre,
-                              expression: "nombre"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "nombre",
-                            name: "nombre",
-                            placeholder: "Nombre de categoría"
-                          },
-                          domProps: { value: _vm.nombre },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.nombre = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "help-block" }, [
-                          _vm._v("(*) Ingrese el nombre de la categoría")
+                          _vm._v("(*) Seleccione el idioma")
                         ])
                       ])
                     ])
@@ -55773,9 +56064,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Cantida")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Año publicación")]),
+        _c("th", [_vm._v("Año publi.")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Numero páginas")]),
+        _c("th", [_vm._v("Número páginas")]),
         _vm._v(" "),
         _c("th", [_vm._v("Ubicación")]),
         _vm._v(" "),

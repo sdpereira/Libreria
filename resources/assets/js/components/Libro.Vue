@@ -37,8 +37,8 @@
                                 <th>Nombre</th>
                                 <th>Codigo</th>
                                 <th>Cantida</th>
-                                <th>Año publicación</th>
-                                <th>Numero páginas</th>
+                                <th>Año publi.</th>
+                                <th>Número páginas</th>
                                 <th>Ubicación</th>
                                 <th>Edición</th>
                                 <th>Categoria</th>
@@ -53,14 +53,14 @@
                                 <td v-text="objeto.nombre"></td>
                                  <td v-text="objeto.codigo"></td>
                                   <td v-text="objeto.cant"></td>
-                                   <td v-text="objeto.año_publi"></td>
+                                   <td v-text="objeto.ano_publi"></td>
                                     <td v-text="objeto.num_pag"></td>
                                      <td v-text="objeto.ubicacion"></td>
                                       <td v-text="objeto.edicion"></td>
                                        <td v-text="objeto.nomCat"></td>
-                                        <td v-text="objeto.nomEdi"></td>
                                          <td v-text="objeto.nomIdi"></td>
                                           <td v-text="objeto.nomAut"></td>
+                                        <td v-text="objeto.nomEdi"></td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
@@ -72,7 +72,7 @@
                             </tr>
                         </tbody>
                     </table>
-               <!-- <nav>
+               <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#"
@@ -88,7 +88,7 @@
                                     @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
                             </li>
                         </ul>
-                    </nav> -->
+                    </nav>
                 </div>
             </div>
             <!-- Fin ejemplo de tabla Listado -->
@@ -107,93 +107,95 @@
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
+                                <label class="col-md-2 form-control-label" for="text-input">Nombre</label>
+                                <div class="col-md-10">
                                     <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                        placeholder="Nombre del libro" />
+                                    <span class="help-block">(*) Ingrese el nombre del libro</span>
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                <label class="col-md-2 form-control-label" for="text-input">Código</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control"
+                                        placeholder="Código" />
+                                    <span class="help-block">(*) Ingrese el código</span>
+                                </div>
+                                <label class="col-md-2 form-control-label" for="text-input">Cantidad</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="cant" id="cant" name="cant" class="form-control"
+                                        placeholder="Cantidad" />
+                                    <span class="help-block">(*) Ingrese la cantidad</span>
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                                <label class="col-md-2 form-control-label" for="text-input">Año publicación</label>
+                                <div class="col-md-4">
+                                    <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control"
+                                        placeholder="Año de publicación" />
+                                    <span class="help-block">(*) Ingrese el año de publicación</span>
+                                </div>
+                                <label class="col-md-2 form-control-label" for="text-input">Número páginas</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="num_pag" id="num_pag" name="num_pag" class="form-control"
+                                        placeholder="Numero de páginas" />
+                                    <span class="help-block">(*) Ingrese el número de páginas</span>
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
+                             <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="ubicacion" id="ubicacion" name="ubicacion" class="form-control"
+                                        placeholder="Ubicación" />
+                                    <span class="help-block">(*) Ingrese la ubicación</span>
+                                </div>
+                                <label class="col-md-2 form-control-label" for="text-input">Edición</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="edicion" id="edicion" name="edicion" class="form-control"
+                                        placeholder="Edición" />
+                                    <span class="help-block">(*) Ingrese la edición</span>
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
+                            <label class="col-md-2 form-control-label" for="text-input">
+                                Categoría
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" v-model="id_categoria" id="exampleFormControlSelect1">
+                                    <option v-for="objeto in arrayCategoria" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
+                                </select>
+                                <span class="help-block">(*) Seleccione la categoría</span>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
+                            <label class="col-md-2 form-control-label" for="text-input">
+                                Idioma
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" v-model="id_idioma" id="exampleFormControlSelect2">
+                                    <option v-for="objeto in arrayIdioma" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
+                                </select>
+                                <span class="help-block">(*) Seleccione el idioma</span>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 form-control-label" for="text-input">
+                                Autor
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" v-model="id_autores" id="exampleFormControlSelect3">
+                                    <option v-for="objeto in arrayAutores" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
+                                </select>
+                                <span class="help-block">(*) Seleccione el autor</span>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
+                           <label class="col-md-2 form-control-label" for="text-input">
+                                Editorial
+                            </label>
+                            <div class="col-md-4">
+                                <select class="form-control" v-model="id_editorial" id="exampleFormControlSelect4">
+                                    <option v-for="objeto in arrayEditorial" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
+                                </select>
+                                <span class="help-block">(*) Seleccione el idioma</span>
                             </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
-                            </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
-                            </div>
-                             <div class="form-group row">
-                                <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-9">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre de categoría" />
-                                    <span class="help-block">(*) Ingrese el nombre de la categoría</span>
-                                </div>
-                            </div>
+                        </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -212,6 +214,7 @@
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-danger" role="document">
                 <div class="modal-content">
+                   
                     <div class="modal-header">
                         <h4 class="modal-title">Eliminar Categoría</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -239,12 +242,27 @@
         data() {
             return {
                 arrayDatos: [],
-                nombre: "",
                 idLibro: 0,
+                nombre: "",
+                codigo:"",
+                cant:"",
+                ano_publi:"",
+                num_pag:"",
+                ubicacion:"",
+                edicion:"",
                 modal: 0,
                 accion: 0,
                 titulo: "",
                 buscar: "",
+                arrayCategoria: [],
+                    id_categoria: 0,
+                arrayIdioma: [],
+                    id_idioma: 0,
+                arrayAutores: [],
+                    id_autores: 0,
+                arrayEditorial: [],
+                    id_editorial: 0,
+
                 pagination: {
                     total: 0,
                     current_page: 0,
@@ -252,12 +270,12 @@
                     last_page: 0,
                     from: 0,
                     to: 0,
-                },
-                offset: 3,
-                buscar: '',
-                criterio: 'nombre',
-            }
-        },
+                 },
+            offset: 3,
+            buscar: '',
+            criterio: 'nombre',
+        }
+    },
         methods: {
             cambiarPagina(page, buscar, criterio) {
                 let me = this;
@@ -274,7 +292,8 @@
                     .get(url)
                     .then(function(response) {
                         var respuesta = response.data;
-                        me.arrayDatos = respuesta.libro.data;
+                        me.arrayDatos = respuesta.libros.data;
+
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function(error) {
@@ -288,20 +307,20 @@
                 .get(url)
                 .then(function (response) {
                     var respuesta = response.data
-                    me.arrayPais = respuesta.categoria
+                    me.arrayCategoria = respuesta.categoria
                 })
                 .catch(function (error) {
                     console.log(error)
                 })
         },
-                getEditorial() {
+                getIdioma() {
             let me = this
-            var url = '/selectEditorial'
+            var url = '/selectIdioma'
             axios
                 .get(url)
                 .then(function (response) {
                     var respuesta = response.data
-                    me.arrayEditoriales = respuesta.editorials
+                    me.arrayIdioma = respuesta.idioma
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -320,14 +339,14 @@
                     console.log(error)
                 })
         },
-                getPais() {
+                getEditorial() {
             let me = this
-            var url = '/selectPais'
+            var url = '/selectEditorial'
             axios
                 .get(url)
                 .then(function (response) {
                     var respuesta = response.data
-                    me.arrayPais = respuesta.pais
+                    me.arrayEditorial = respuesta.editorials
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -338,7 +357,17 @@
                 var url = "/libro/registrar";
                 axios
                     .post(url, {
-                        nombre: this.nombre
+                        nombre: this.nombre,
+                        codigo:this.codigo,
+                        cant:this.cant,
+                        ano_publi:this.ano_publi,
+                        num_pag:this.num_pag,
+                        ubicacion:this.ubicacion,
+                        edicion:this.edicion,
+                        id_categoria:this.id_categoria,
+                        id_idioma:this.id_idioma,
+                        id_autores:this.id_autores,
+                        id_editorial:this.id_editorial,
                     })
                     .then(function(response) {
                         me.ListarLibro();
@@ -354,7 +383,17 @@
                 axios
                     .put(url, {
                         id: this.idLibro,
-                        nombre: this.nombre
+                        nombre: this.nombre,
+                        codigo:this.codigo,
+                        cant:this.cant,
+                        ano_publi:this.ano_publi,
+                        num_pag:this.num_pag,
+                        ubicacion:this.ubicacion,
+                        edicion:this.edicion,
+                        id_categoria:this.id_categoria,
+                        id_idioma:this.id_idioma,
+                        id_autores:this.id_autores,
+                        id_editorial:this.id_editorial,
                     })
                     .then(function(response) {
                         me.ListarLibro();
@@ -400,17 +439,27 @@
             abrirModal(accion, data = []) {
                 switch (accion) {
                     case "guardar":
-                        this.titulo = "Registrar Categoria";
+                        this.titulo = "Registrar Libro";
                         this.accion = 0;
                         this.limpiar();
 
                         break;
 
                     case "editar":
-                        this.titulo = "Editar Categoria";
+                        this.titulo = "Editar Libro";
                         this.accion = 1;
                         this.idLibro = data["id"];
                         this.nombre = data["nombre"];
+                        this.codigo = data["codigo"];
+                        this.cant = data["cant"];
+                        this.ano_publi = data["ano_publi"];
+                        this.num_pag = data["num_pag"];
+                        this.ubicacion = data["ubicacion"];
+                        this.edicion = data["edicion"];
+                        this.id_categoria = data["id"];
+                        this.id_idioma = data["id"];
+                        this.id_autores = data["id"];
+                        this.id_editorial = data["id"];
                         break;
 
                     default:
@@ -466,7 +515,10 @@
         },
         mounted() {
             console.log("Component mounted.");
-            
+            this.getCategoria();
+            this.getIdioma();
+            this.getAutores();
+            this.getEditorial();
             this.ListarLibro(1, this.criterio, this.buscar);
         }
     };
