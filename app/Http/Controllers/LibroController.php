@@ -84,7 +84,7 @@ class LibroController extends Controller
 
         $libros->save();
     }
-
+    
     public function update(Request $request)
     {
         $libros = Libro::findOrFail($request->id);

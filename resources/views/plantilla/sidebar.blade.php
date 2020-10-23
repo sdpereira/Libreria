@@ -33,8 +33,14 @@
                     <li @click="menu=6" class="nav-item">
                         <a class="nav-link" href="#"><i class="fa fa-book"></i> Libros</a>
                     </li>
+                    <li @click="menu=7" class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-plus-square-o"></i> Prestamos Libros</a>
+                    </li>
+                    <li @click="menu=8" class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-user"></i> Personas</a>
+                    </li>
+                </ul>
             </li>
-        </ul>
         <li class="nav-item">
             <a class="nav-link" href="main.html"><i class="icon-book-open"></i> Ayuda <span
                     class="badge badge-danger">PDF</span></a>

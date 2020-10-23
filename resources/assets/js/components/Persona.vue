@@ -10,7 +10,7 @@
             <!-- Ejemplo de tabla Listado -->
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fas fa-bookmark"></i> Libros
+                    <i class="fa fas fa-bookmark"></i> Usuario
                     <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal"
                         @click="abrirModal('guardar')">
                         <i class="icon-plus"></i>&nbsp;Nuevo
@@ -21,7 +21,7 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <select class="form-control col-md-3" id="opcion" name="opcion">
-                                    <option value="nombre">Nombre</option>
+                                    <option value="nombrecompleto">Nombre</option>
                                 </select>
                                 <input type="text" id="texto" name="texto" v-model="buscar" class="form-control"
                                     placeholder="Texto a buscar" />
@@ -34,33 +34,24 @@
                     <table class="table table-bordered table-striped table-sm">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Codigo</th>
-                                <th>Cantida</th>
-                                <th>Año publi.</th>
-                                <th>Número páginas</th>
-                                <th>Ubicación</th>
-                                <th>Edición</th>
-                                <th>Categoria</th>
-                                <th>Idioma</th>
-                                <th>Autor</th>
-                                <th>Editorial</th>
+                                <th>Documento</th>
+                                <th>Número</th>
+                                <th>Nombres</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>E-mail</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="objeto in arrayDatos" :key="objeto.id">
-                                <td v-text="objeto.nombre"></td>
-                                 <td v-text="objeto.codigo"></td>
-                                  <td v-text="objeto.cant"></td>
-                                   <td v-text="objeto.ano_publi"></td>
-                                    <td v-text="objeto.num_pag"></td>
-                                     <td v-text="objeto.ubicacion"></td>
-                                      <td v-text="objeto.edicion"></td>
-                                       <td v-text="objeto.nomCat"></td>
-                                         <td v-text="objeto.nomIdi"></td>
-                                          <td v-text="objeto.nomAut"></td>
-                                        <td v-text="objeto.nomEdi"></td>
+                                <td v-text="objeto.documento"></td>
+                                <td v-text="objeto.numero"></td>
+                                <td v-text="objeto.nombrecompleto"></td>
+                                <td v-text="objeto.direccion"></td>
+                                <td v-text="objeto.telefono"></td>
+                                <td v-text="objeto.email"></td>
+
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
@@ -106,95 +97,52 @@
                     </div>
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                            <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Nombre</label>
-                                <div class="col-md-10">
-                                    <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
-                                        placeholder="Nombre del libro" />
-                                   
-                                </div>
-                            </div>
+
                              <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Código</label>
+                                <label class="col-md-2 form-control-label" for="text-input">Tipo de documento</label>
                                 <div class="col-md-4">
-                                    <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control"
+                                    <input type="text" v-model="documento" id="documento" name="documento" class="form-control"
                                         placeholder="Código" />
                                 </div>
-                                <label class="col-md-2 form-control-label" for="text-input">Cantidad</label>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 form-control-label" for="text-input">Número de documento</label>
+                                <div class="col-md-10">
+                                    <input type="text" v-model="numero" id="numero" name="numero" class="form-control"
+                                        placeholder="Nombre del persona" />
+                                   
+                                </div>
+                        
+                                <label class="col-md-2 form-control-label" for="text-input">Nombres</label>
                                 <div class="col-md-4">
-                                    <input type="text" v-model="cant" id="cant" name="cant" class="form-control"
-                                        placeholder="Cantidad" />
+                                    <input type="text" v-model="nombrecompleto" id="nombrecompleto" name="nombrecompleto" class="form-control"
+                                        placeholder="Nombres" />
                                 </div>
                             </div>
                              <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Año publicación</label>
+                                <label class="col-md-2 form-control-label" for="text-input">Dirección</label>
                                 <div class="col-md-4">
-                                    <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control"
-                                        placeholder="Año de publicación" />
+                                    <input type="text" v-model="direccion" id="direccion" name="direccion" class="form-control"
+                                        placeholder="Dirección" />
                                 </div>
-                                <label class="col-md-2 form-control-label" for="text-input">Número páginas</label>
+                                <label class="col-md-2 form-control-label" for="text-input">Teléfono</label>
                                 <div class="col-md-4">
-                                    <input type="text" v-model="num_pag" id="num_pag" name="num_pag" class="form-control"
-                                        placeholder="Numero de páginas" />
-                                </div>
-                            </div>
-                             <div class="form-group row">
-                             <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="ubicacion" id="ubicacion" name="ubicacion" class="form-control"
-                                        placeholder="Ubicación" />
-                                </div>
-                                <label class="col-md-2 form-control-label" for="text-input">Edición</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="edicion" id="edicion" name="edicion" class="form-control"
-                                        placeholder="Edición" />
+                                    <input type="text" v-model="telefono" id="telefono" name="telefono" class="form-control"
+                                        placeholder="Teléfono" />
                                 </div>
                             </div>
                              <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="text-input">
-                                Categoría
-                            </label>
-                            <div class="col-md-4">
-                                <select class="form-control" v-model="id_categoria" id="exampleFormControlSelect1">
-                                    <option v-for="objeto in arrayCategoria" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
-                                </select>
-                                <span class="help-block">(*) Seleccione la categoría</span>
-                            </div>
-                            <label class="col-md-2 form-control-label" for="text-input">
-                                Idioma
-                            </label>
-                            <div class="col-md-4">
-                                <select class="form-control" v-model="id_idioma" id="exampleFormControlSelect2">
-                                    <option v-for="objeto in arrayIdioma" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
-                                </select>
-                                <span class="help-block">(*) Seleccione el idioma</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="text-input">
-                                Autor
-                            </label>
-                            <div class="col-md-4">
-                                <select class="form-control" v-model="id_autores" id="exampleFormControlSelect3">
-                                    <option v-for="objeto in arrayAutores" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
-                                </select>
-                                <span class="help-block">(*) Seleccione el autor</span>
-                            </div>
-                           <label class="col-md-2 form-control-label" for="text-input">
-                                Editorial
-                            </label>
-                            <div class="col-md-4">
-                                <select class="form-control" v-model="id_editorial" id="exampleFormControlSelect4">
-                                    <option v-for="objeto in arrayEditorial" :key="objeto.id" :value="objeto.id" v-text="objeto.nombre"></option>
-                                </select>
-                                <span class="help-block">(*) Seleccione el idioma</span>
-                            </div>
+                             <label class="col-md-2 form-control-label" for="text-input">E-mail</label>
+                                <div class="col-md-4">
+                                    <input type="text" v-model="email" id="email" name="email" class="form-control"
+                                        placeholder="E-mail" />
+                                </div>
                         </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" @click="cerrarModal" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button v-show="accion == 0" type="button" @click="RegistrarLibro" class="btn btn-primary">Guardar </button>
+                        <button v-show="accion == 0" type="button" @click="RegistrarPersona" class="btn btn-primary">Guardar </button>
                         <button v-show="accion" type="button" @click="ActualizarLibro" class="btn btn-primary">Actualizar</button>
                     </div>
                 </div>
@@ -236,26 +184,18 @@
         data() {
             return {
                 arrayDatos: [],
-                idLibro: 0,
-                nombre: "",
-                codigo:"",
-                cant:"",
-                ano_publi:"",
-                num_pag:"",
-                ubicacion:"",
-                edicion:"",
+                idPersona: 0,
+                nombrecompleto: "",
+                numero:"",
+                apellidos:"",
+                direccion:"",
+                telefono:"",
+                email:"",
+                documento:"",
                 modal: 0,
                 accion: 0,
                 titulo: "",
                 buscar: "",
-                arrayCategoria: [],
-                    id_categoria: 0,
-                arrayIdioma: [],
-                    id_idioma: 0,
-                arrayAutores: [],
-                    id_autores: 0,
-                arrayEditorial: [],
-                    id_editorial: 0,
 
                 pagination: {
                     total: 0,
@@ -267,7 +207,7 @@
                  },
             offset: 3,
             buscar: '',
-            criterio: 'nombre',
+            criterio: 'nombrecompleto',
         }
     },
         methods: {
@@ -276,17 +216,17 @@
                 //Va a la pagina actual
                 me.pagination.current_page = page;
                 //metodo para traer los datos
-                me.ListarLibro(page, criterio, buscar);
+                me.ListarPersona(page, criterio, buscar);
             },
 
-            ListarLibro: function(page, criterio, buscar) {
+            ListarPersona: function(page, criterio, buscar) {
                 let me = this;
-                var url = "/libro?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
+                var url = "/persona?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
                 axios
                     .get(url)
                     .then(function(response) {
                         var respuesta = response.data;
-                        me.arrayDatos = respuesta.libros.data;
+                        me.arrayDatos = respuesta.persona.data;
 
                         me.pagination = respuesta.pagination;
                     })
@@ -294,77 +234,23 @@
                         console.log(error);
                     });
             },
-                    getCategoria() {
-            let me = this
-            var url = '/selectCategoria'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayCategoria = respuesta.categoria
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getIdioma() {
-            let me = this
-            var url = '/selectIdioma'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayIdioma = respuesta.idioma
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getAutores() {
-            let me = this
-            var url = '/selectAutores'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayAutores= respuesta.autores
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getEditorial() {
-            let me = this
-            var url = '/selectEditorial'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayEditorial = respuesta.editorials
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-            RegistrarLibro() {
+            
+            RegistrarPersona() {
                 let me = this;
-                var url = "/libro/registrar";
+                var url = "/persona/registrar";
                 axios
                     .post(url, {
-                        nombre: this.nombre,
-                        codigo:this.codigo,
-                        cant:this.cant,
-                        ano_publi:this.ano_publi,
-                        num_pag:this.num_pag,
-                        ubicacion:this.ubicacion,
-                        edicion:this.edicion,
-                        id_categoria:this.id_categoria,
-                        id_idioma:this.id_idioma,
-                        id_autores:this.id_autores,
-                        id_editorial:this.id_editorial,
+                        id:this.idPersona,
+                             numero: this.numero,
+                        nombrecompleto: this.nombrecompleto,
+                        apellidos:this.apellidos,
+                        direccion:this.direccion,
+                        telefono:this.telefono,
+                        email:this.email,
+                        documento:this.documento,
                     })
                     .then(function(response) {
-                        me.ListarLibro();
+                        me.ListarPersona();
                         me.mensaje("¡Se guardó correctamente!");
                     })
                     .catch(function(error) {
@@ -373,24 +259,20 @@
             },
             ActualizarLibro() {
                 let me = this;
-                var url = "/libro/actualizar";
+                var url = "/persona/actualizar";
                 axios
                     .put(url, {
-                        id: this.idLibro,
-                        nombre: this.nombre,
-                        codigo:this.codigo,
-                        cant:this.cant,
-                        ano_publi:this.ano_publi,
-                        num_pag:this.num_pag,
-                        ubicacion:this.ubicacion,
-                        edicion:this.edicion,
-                        id_categoria:this.id_categoria,
-                        id_idioma:this.id_idioma,
-                        id_autores:this.id_autores,
-                        id_editorial:this.id_editorial,
+                        id: this.idPersona,
+                           numero: this.numero,
+                        nombrecompleto: this.nombrecompleto,
+                        apellidos:this.apellidos,
+                        direccion:this.direccion,
+                        telefono:this.telefono,
+                        email:this.email,
+                        documento:this.documento,
                     })
                     .then(function(response) {
-                        me.ListarLibro();
+                        me.ListarPersona();
                         me.mensaje("¡Se actualizó correctamente!");
                         me.cerrarModal();
                     })
@@ -411,13 +293,13 @@
                     confirmButtonText: "¡Si, bórralo!"
                 }).then(result => {
                     if (result.isConfirmed) {
-                        var url = "/libro/eliminar";
+                        var url = "/persona/eliminar";
                         axios
                             .post(url, {
                                 id: data["id"]
                             })
                             .then(function(response) {
-                                me.ListarLibro();
+                                me.ListarPersona();
                             })
                             .catch(function(error) {
                                 console.log(error);
@@ -442,19 +324,15 @@
                     case "editar":
                         this.titulo = "Editar Libro";
                         this.accion = 1;
-                        this.idLibro = data["id"];
-                        this.nombre = data["nombre"];
-                        this.codigo = data["codigo"];
-                        this.cant = data["cant"];
-                        this.ano_publi = data["ano_publi"];
-                        this.num_pag = data["num_pag"];
-                        this.ubicacion = data["ubicacion"];
-                        this.edicion = data["edicion"];
-                        // this.id_categoria = data["id"];
-                        // this.id_idioma = data["id"];
-                        // this.id_autores = data["id"];
-                        // this.id_editorial = data["id"];
-                        // break;
+                        this.idPersona = data["id"];
+                          this.numero=data["numero"];
+                        this.nombrecompleto = data["nombrecompleto"];
+                        this.apellidos = data["apellidos"];
+                        this.direccion = data["direccion"];
+                        this.telefono = data["telefono"];
+                        this.email = data["email"];
+                        this.documento = data["documento"];
+                        break;
 
                     default:
                         break;
@@ -466,7 +344,7 @@
                 this.modal = 0;
             },
             limpiar() {
-                this.nombre = "";
+                this.nombrecompleto = "";
             },
 
             mensaje(msj) {
@@ -509,11 +387,7 @@
         },
         mounted() {
             console.log("Component mounted.");
-            this.getCategoria();
-            this.getIdioma();
-            this.getAutores();
-            this.getEditorial();
-            this.ListarLibro(1, this.criterio, this.buscar);
+            this.ListarPersona(1, this.criterio, this.buscar);
         }
     };
 

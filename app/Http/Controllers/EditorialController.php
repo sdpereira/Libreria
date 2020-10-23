@@ -10,7 +10,7 @@ class EditorialController extends Controller
 
     public function index(Request $request)
     {
-        $buscar    = $request->nombre;
+        $buscar    = $request->buscar;
         $criterio  = $request->criterio;
         $editorials = Editorial::orderBy('nombre', 'asc')->get();
         if ($buscar == '') {

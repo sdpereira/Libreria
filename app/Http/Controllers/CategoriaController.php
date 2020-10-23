@@ -9,11 +9,11 @@ class CategoriaController extends Controller
 {
     public function index(Request $request)
     {
-        $buscar   = $request->nombre;
+        $buscar   = $request->buscar;
         $criterio = $request->criterio;
 
         if ($buscar == '') {
-            $categoria = Categoria::orderBy('nombre', 'asc')->paginate(10);
+            $categoria = Categoria::orderBy('buscar', 'asc')->paginate(10);
         } else {
             $categoria = Categoria::where('criterio', '=', $buscar) - orderBy('nombre', 'asc')->paginate(10);
         }

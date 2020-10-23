@@ -216,7 +216,7 @@ export default {
             axios
                 .get(url)
                 .then(function (response) {
-                    var respuesta = response.data
+                    var respuesta = response.data;
                     me.arrayDatos = respuesta.autores.data;
                     me.pagination = respuesta.pagination;
                 })
@@ -230,8 +230,8 @@ export default {
             axios
                 .get(url)
                 .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayPais = respuesta.pais
+                    var respuesta = response.data;
+                    me.arrayPais = respuesta.pais;
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -314,10 +314,10 @@ export default {
                     break
                 case 'editar':
                     this.titulo = 'Editar autor'
-                    this.accion = 1
-                    this.idAutores = data['id']
-                    this.nombre = data['nombre']
-                    this.id_pais = data['id']
+                    this.accion = 1;
+                    this.idAutores = data['id'];
+                    this.nombre = data['nombre'];
+                    this.id_pais = data['id'];
                     break
                 default:
                     break
@@ -328,7 +328,9 @@ export default {
             this.modal = 0
         },
         limpiar() {
-            this.nombre = ''
+            this.idAutores = data['id'];
+            this.nombre = data['nombre'];
+            this.id_pais = data['id'];
         },
         mensaje(msj) {
             Swal.fire({
