@@ -56,3 +56,4 @@ Route::put('persona/actualizar', 'PersonaController@update');
 Route::post('persona/eliminar', 'PersonaController@destroy');
 Route::get('selectTipoDoc', 'TipoDocumentoController@getTipoDoc');
 
+Route::get('solicitud', 'SolicitudController@index');

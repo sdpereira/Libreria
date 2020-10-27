@@ -9,8 +9,8 @@ class LibroController extends Controller
 {
     public function index(Request $request)
     {
-        $buscar   = $request->nombre;
-        $criterio = $request->criterio;
+        $buscar   = $request->buscar;
+        // $criterio = $request->criterio;
         $libros = Libro::orderBy('nombre', 'asc')->get();
         
 
@@ -32,7 +32,8 @@ class LibroController extends Controller
                 'idiomas.nombre as nomIdi',
                 'autores.nombre as nomAut',
                 'editorials.nombre as nomEdi'
-            ) ->orderBy('nombre','asc')->paginate(4);
+            ) 
+            ->orderBy('nombre','asc')->paginate(2);
         } else {
             $libros = Libro::join('categorias','libros.id_categoria','=','categorias.id')
         ->join('idiomas', 'libros.id_idioma', '=', 'idiomas.id')
@@ -49,8 +50,9 @@ class LibroController extends Controller
                 'categorias.nombre as nomCat',
                 'idiomas.nombre as nomIdi',
                 'autores.nombre as nomAut',
-                'editorials.nombre as nomEdi'
-            ) ->orderBy('nombre','asc')->paginate(4);
+                'editorials.nombre as nomEdi',
+            )->where('libros.nombre','like', '%'.$buscar.'%')
+             ->orderBy('nombre','asc')->paginate(2);
         }
 
         return [
