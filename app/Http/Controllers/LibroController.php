@@ -51,7 +51,9 @@ class LibroController extends Controller
                 'idiomas.nombre as nomIdi',
                 'autores.nombre as nomAut',
                 'editorials.nombre as nomEdi',
-            )->where('libros.nombre','like', '%'.$buscar.'%')
+         ) //->where('libros.nombre','like', '%'.$buscar.'%')
+            // ->orwhere('libros.codigo','like', '%'.$buscar.'%')
+
              ->orderBy('nombre','asc')->paginate(2);
         }
 
@@ -66,6 +68,24 @@ class LibroController extends Controller
 
             ],
             'libros'  => $libros,
+        ];
+    }
+
+    public function GetLibro(Request $request)
+    {
+        $buscar   = $request->buscar;
+        // $criterio = $request->criterio;
+        $libros = Libro::orderBy('nombre', 'asc')->get();
+
+        $libros = Libro::join('autores', 'libros.id_autores', '=', 'autores.id')
+        ->join('editorials', 'libros.id_editorial', '=', 'editorials.id')
+        ->select( 'libros.id','libros.codigo','libros.nombre','libros.cant','autores.nombre as nomAut',
+        'editorials.nombre as nomEdi',)
+        ->where('libros.codigo',$buscar)
+            ->orwhere('libros.nombre','like', '%'.$buscar.'%')
+            ->orderBy('nombre','asc')->take(1)->get(); // take solo toma el primer valor buscado
+        return [
+            'libros'  => $libros
         ];
     }
 

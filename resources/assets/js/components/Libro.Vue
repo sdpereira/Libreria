@@ -11,8 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fas fa-bookmark"></i> Libros
-                    <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal"
-                        @click="abrirModal('guardar')">
+                    <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal" @click="abrirModal('guardar')">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
@@ -36,7 +35,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Codigo</th>
-                                <th>Cantida</th>
+                                <th>Cantidad</th>
                                 <th>Año publi.</th>
                                 <th>Número páginas</th>
                                 <th>Ubicación</th>
@@ -51,16 +50,16 @@
                         <tbody>
                             <tr v-for="objeto in arrayDatos" :key="objeto.id">
                                 <td v-text="objeto.nombre"></td>
-                                 <td v-text="objeto.codigo"></td>
-                                  <td v-text="objeto.cant"></td>
-                                   <td v-text="objeto.ano_publi"></td>
-                                    <td v-text="objeto.num_pag"></td>
-                                     <td v-text="objeto.ubicacion"></td>
-                                      <td v-text="objeto.edicion"></td>
-                                       <td v-text="objeto.nomCat"></td>
-                                         <td v-text="objeto.nomIdi"></td>
-                                          <td v-text="objeto.nomAut"></td>
-                                        <td v-text="objeto.nomEdi"></td>
+                                <td v-text="objeto.codigo"></td>
+                                <td v-text="objeto.cant"></td>
+                                <td v-text="objeto.ano_publi"></td>
+                                <td v-text="objeto.num_pag"></td>
+                                <td v-text="objeto.ubicacion"></td>
+                                <td v-text="objeto.edicion"></td>
+                                <td v-text="objeto.nomCat"></td>
+                                <td v-text="objeto.nomIdi"></td>
+                                <td v-text="objeto.nomAut"></td>
+                                <td v-text="objeto.nomEdi"></td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
@@ -72,7 +71,7 @@
                             </tr>
                         </tbody>
                     </table>
-               <nav>
+                    <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#"
@@ -111,10 +110,9 @@
                                 <div class="col-md-10">
                                     <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control"
                                         placeholder="Nombre del libro" />
-                                   
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-md-2 form-control-label" for="text-input">Código</label>
                                 <div class="col-md-4">
                                     <input type="text" v-model="codigo" id="codigo" name="codigo" class="form-control"
@@ -126,7 +124,7 @@
                                         placeholder="Cantidad" />
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-md-2 form-control-label" for="text-input">Año publicación</label>
                                 <div class="col-md-4">
                                     <input type="date" v-model="ano_publi" id="ano_publi" name="ano_publi" class="form-control"
@@ -138,8 +136,8 @@
                                         placeholder="Numero de páginas" />
                                 </div>
                             </div>
-                             <div class="form-group row">
-                             <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
+                            <div class="form-group row">
+                            <label class="col-md-2 form-control-label" for="text-input">Ubicación</label>
                                 <div class="col-md-4">
                                     <input type="text" v-model="ubicacion" id="ubicacion" name="ubicacion" class="form-control"
                                         placeholder="Ubicación" />
@@ -150,7 +148,7 @@
                                         placeholder="Edición" />
                                 </div>
                             </div>
-                             <div class="form-group row">
+                            <div class="form-group row">
                             <label class="col-md-2 form-control-label" for="text-input">
                                 Categoría
                             </label>
@@ -180,7 +178,7 @@
                                 </select>
                                 <span class="help-block">(*) Seleccione el autor</span>
                             </div>
-                           <label class="col-md-2 form-control-label" for="text-input">
+                            <label class="col-md-2 form-control-label" for="text-input">
                                 Editorial
                             </label>
                             <div class="col-md-4">
@@ -208,7 +206,6 @@
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-danger" role="document">
                 <div class="modal-content">
-                   
                     <div class="modal-header">
                         <h4 class="modal-title">Eliminar Categoría</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -256,7 +253,6 @@
                     id_autores: 0,
                 arrayEditorial: [],
                     id_editorial: 0,
-
                 pagination: {
                     total: 0,
                     current_page: 0,
@@ -264,7 +260,7 @@
                     last_page: 0,
                     from: 0,
                     to: 0,
-                 },
+                },
             offset: 3,
             buscar: '',
             criterio: 'nombre',
@@ -278,7 +274,6 @@
                 //metodo para traer los datos
                 me.ListarLibro(page, criterio, buscar);
             },
-
             ListarLibro: function(page, criterio, buscar) {
                 let me = this;
                 var url = "/libro?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
@@ -287,65 +282,64 @@
                     .then(function(response) {
                         var respuesta = response.data;
                         me.arrayDatos = respuesta.libros.data;
-
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
             },
-                    getCategoria() {
-            let me = this
-            var url = '/selectCategoria'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayCategoria = respuesta.categoria
+            getCategoria() {
+                let me = this
+                var url = '/selectCategoria'
+                axios
+                    .get(url)
+                    .then(function (response) {
+                        var respuesta = response.data
+                        me.arrayCategoria = respuesta.categoria
+                    })
+                    .catch(function (error) {
+                        console.log(error)
                 })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getIdioma() {
-            let me = this
-            var url = '/selectIdioma'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayIdioma = respuesta.idioma
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getAutores() {
-            let me = this
-            var url = '/selectAutores'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayAutores= respuesta.autores
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-                getEditorial() {
-            let me = this
-            var url = '/selectEditorial'
-            axios
-                .get(url)
-                .then(function (response) {
-                    var respuesta = response.data
-                    me.arrayEditorial = respuesta.editorials
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
+            },
+            getIdioma() {
+                let me = this
+                var url = '/selectIdioma'
+                axios
+                    .get(url)
+                    .then(function (response) {
+                        var respuesta = response.data
+                        me.arrayIdioma = respuesta.idioma
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            getAutores() {
+                let me = this
+                var url = '/selectAutores'
+                axios
+                    .get(url)
+                    .then(function (response) {
+                        var respuesta = response.data
+                        me.arrayAutores= respuesta.autores
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+            getEditorial() {
+                let me = this
+                var url = '/selectEditorial'
+                axios
+                    .get(url)
+                    .then(function (response) {
+                        var respuesta = response.data
+                        me.arrayEditorial = respuesta.editorials
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
             RegistrarLibro() {
                 let me = this;
                 var url = "/libro/registrar";
@@ -366,6 +360,8 @@
                     .then(function(response) {
                         me.ListarLibro();
                         me.mensaje("¡Se guardó correctamente!");
+                        me.cerrarModal();
+                        
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -390,9 +386,9 @@
                         id_editorial:this.id_editorial,
                     })
                     .then(function(response) {
-                        me.ListarLibro();
                         me.mensaje("¡Se actualizó correctamente!");
                         me.cerrarModal();
+                        me.ListarLibro();
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -418,6 +414,7 @@
                             })
                             .then(function(response) {
                                 me.ListarLibro();
+                                
                             })
                             .catch(function(error) {
                                 console.log(error);
@@ -425,10 +422,9 @@
                         Swal.fire(
                             "¡Eliminado!",
                             "El dato ha sido eliminado.",
-                            "success"
-                        )
-                    }
-                })
+                            "success")
+                        }
+                    })
             },
             abrirModal(accion, data = []) {
                 switch (accion) {
@@ -436,9 +432,7 @@
                         this.titulo = "Registrar Libro";
                         this.accion = 0;
                         this.limpiar();
-
                         break;
-
                     case "editar":
                         this.titulo = "Editar Libro";
                         this.accion = 1;
@@ -450,16 +444,14 @@
                         this.num_pag = data["num_pag"];
                         this.ubicacion = data["ubicacion"];
                         this.edicion = data["edicion"];
-                        // this.id_categoria = data["id"];
-                        // this.id_idioma = data["id"];
-                        // this.id_autores = data["id"];
-                        // this.id_editorial = data["id"];
-                        // break;
-
+                        this.id_categoria = data["id"];
+                        this.id_idioma = data["id"];
+                        this.id_autores = data["id"];
+                        this.id_editorial = data["id"];
+                        break;
                     default:
                         break;
                 }
-
                 this.modal = 1;
             },
             cerrarModal() {
@@ -467,8 +459,18 @@
             },
             limpiar() {
                 this.nombre = "";
+                        this.nombre ="";"";
+                        this.codigo =""; 
+                        this.cant =""; 
+                        this.ano_publi =""; 
+                        this.num_pag =""; 
+                        this.ubicacion =""; 
+                        this.edicion =""; 
+                        this.id_categoria =""; 
+                        this.id_idioma =""; 
+                        this.id_autores =""; 
+                        this.id_editorial =""; 
             },
-
             mensaje(msj) {
                 Swal.fire({
                     position: "center",
@@ -488,17 +490,14 @@
                 if (!this.pagination.to) {
                     return [];
                 }
-
                 var from = this.pagination.current_page - this.offset;
                 if (from < 1) {
                     from = 1;
                 }
-
                 var to = from + this.offset * 2;
                 if (to >= this.pagination.last_page) {
                     to = this.pagination.last_page;
                 }
-
                 var pagesArray = [];
                 while (from <= to) {
                     pagesArray.push(from);
@@ -516,7 +515,6 @@
             this.ListarLibro(1, this.criterio, this.buscar);
         }
     };
-
 </script>
 
 <style>
@@ -524,12 +522,10 @@
         width: 100% !important;
         position: absolute;
     }
-
     .mostrar {
         display: list-item !important;
         opacity: 1 !important;
         position: absolute !important;
         background-color: #bbb4b47a;
     }
-
 </style>

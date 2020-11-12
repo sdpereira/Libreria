@@ -11,8 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fas fa-bookmark"></i> Usuario
-                    <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal"
-                        @click="abrirModal('guardar')">
+                    <button type="button" class="btn btn-secondary btn-dark" data-toggle="modal" @click="abrirModal('guardar')">
                         <i class="icon-plus"></i>&nbsp;Nuevo
                     </button>
                 </div>
@@ -21,10 +20,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <select class="form-control col-md-3" id="opcion" name="opcion">
-                                    <option value="nombrecompleto">Nombre</option>
+                                    <option value="nombres">Nombre</option>
                                 </select>
-                                <input type="text" id="texto" name="texto" v-model="buscar" class="form-control"
-                                    placeholder="Texto a buscar" />
+                                <input type="text" id="texto" name="texto" v-model="buscar" class="form-control" placeholder="Texto a buscar" />
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i> Buscar
                                 </button>
@@ -37,6 +35,7 @@
                                 <th>Documento</th>
                                 <th>Número</th>
                                 <th>Nombres</th>
+                                <th>Apellidos</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
                                 <th>E-mail</th>
@@ -47,11 +46,11 @@
                             <tr v-for="objeto in arrayDatos" :key="objeto.id">
                                 <td v-text="objeto.documento"></td>
                                 <td v-text="objeto.numero"></td>
-                                <td v-text="objeto.nombrecompleto"></td>
+                                <td v-text="objeto.nombres"></td>
+                                <td v-text="objeto.apellidos"></td>
                                 <td v-text="objeto.direccion"></td>
                                 <td v-text="objeto.telefono"></td>
                                 <td v-text="objeto.email"></td>
-
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" @click="abrirModal('editar', objeto)">
                                         <i class="icon-pencil"></i>
@@ -63,7 +62,7 @@
                             </tr>
                         </tbody>
                     </table>
-               <nav>
+                    <nav>    
                         <ul class="pagination justify-content-center">
                             <li class="page-item" v-if="pagination.current_page > 1">
                                 <a class="page-link" href="#"
@@ -97,47 +96,42 @@
                     </div>
                     <div class="modal-body">
                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-                             <div class="form-group row">
+                            <div class="form-group row">
                                 <label class="col-md-2 form-control-label" for="text-input">Tipo de documento</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="documento" id="documento" name="documento" class="form-control"
-                                        placeholder="Código" />
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="documento" id="documento" name="documento" class="form-control" placeholder="Nombres del usuario" />              
+                                    </div>                        
+                                <label class="col-md-2 form-control-label" for="text-input">Número de documento</label>
+                                    <div class="col-md-4">
+                                    <input type="text" v-model="numero" id="numero" name="numero" class="form-control" placeholder="Apeliidos del usuario" />                                   
+                                    </div>
                                 </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 form-control-label" for="text-input">Nombres</label>
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="nombres" id="nombres" name="nombres" class="form-control" placeholder="Nombres" />
+                                    </div>
+                                <label class="col-md-2 form-control-label" for="text-input">Nombres</label>
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="apellidos" id="apellidos" name="apellidos" class="form-control" placeholder="Nombres" />
+                                    </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-2 form-control-label" for="text-input">Número de documento</label>
-                                <div class="col-md-10">
-                                    <input type="text" v-model="numero" id="numero" name="numero" class="form-control"
-                                        placeholder="Nombre del persona" />
-                                   
-                                </div>
-                        
-                                <label class="col-md-2 form-control-label" for="text-input">Nombres</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="nombrecompleto" id="nombrecompleto" name="nombrecompleto" class="form-control"
-                                        placeholder="Nombres" />
-                                </div>
-                            </div>
-                             <div class="form-group row">
                                 <label class="col-md-2 form-control-label" for="text-input">Dirección</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="direccion" id="direccion" name="direccion" class="form-control"
-                                        placeholder="Dirección" />
-                                </div>
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="direccion" id="direccion" name="direccion" class="form-control" placeholder="Dirección" />
+                                    </div>
                                 <label class="col-md-2 form-control-label" for="text-input">Teléfono</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="telefono" id="telefono" name="telefono" class="form-control"
-                                        placeholder="Teléfono" />
-                                </div>
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="telefono" id="telefono" name="telefono" class="form-control" placeholder="Teléfono" />
+                                    </div>
                             </div>
-                             <div class="form-group row">
-                             <label class="col-md-2 form-control-label" for="text-input">E-mail</label>
-                                <div class="col-md-4">
-                                    <input type="text" v-model="email" id="email" name="email" class="form-control"
-                                        placeholder="E-mail" />
-                                </div>
-                        </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 form-control-label" for="text-input">E-mail</label>
+                                    <div class="col-md-4">
+                                        <input type="text" v-model="email" id="email" name="email" class="form-control" placeholder="E-mail" />
+                                    </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -152,11 +146,9 @@
         </div>
         <!--Fin del modal-->
         <!-- Inicio del modal Eliminar -->
-        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-            style="display: none;" aria-hidden="true">
+        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-danger" role="document">
                 <div class="modal-content">
-                   
                     <div class="modal-header">
                         <h4 class="modal-title">Eliminar Categoría</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -185,13 +177,13 @@
             return {
                 arrayDatos: [],
                 idPersona: 0,
-                nombrecompleto: "",
-                numero:"",
+                documento:"",
+                nombres: "",
                 apellidos:"",
+                numero:"",
                 direccion:"",
                 telefono:"",
                 email:"",
-                documento:"",
                 modal: 0,
                 accion: 0,
                 titulo: "",
@@ -204,10 +196,10 @@
                     last_page: 0,
                     from: 0,
                     to: 0,
-                 },
+                },
             offset: 3,
             buscar: '',
-            criterio: 'nombrecompleto',
+            criterio: 'nombres',
         }
     },
         methods: {
@@ -218,7 +210,6 @@
                 //metodo para traer los datos
                 me.ListarPersona(page, criterio, buscar);
             },
-
             ListarPersona: function(page, criterio, buscar) {
                 let me = this;
                 var url = "/persona?page=" + page + '&criterio=' + criterio + '&buscar=' + buscar;
@@ -227,22 +218,20 @@
                     .then(function(response) {
                         var respuesta = response.data;
                         me.arrayDatos = respuesta.persona.data;
-
                         me.pagination = respuesta.pagination;
                     })
                     .catch(function(error) {
                         console.log(error);
                     });
             },
-            
             RegistrarPersona() {
                 let me = this;
                 var url = "/persona/registrar";
                 axios
                     .post(url, {
                         id:this.idPersona,
-                             numero: this.numero,
-                        nombrecompleto: this.nombrecompleto,
+                        numero:this.numero,
+                        nombres:this.nombres,
                         apellidos:this.apellidos,
                         direccion:this.direccion,
                         telefono:this.telefono,
@@ -262,9 +251,9 @@
                 var url = "/persona/actualizar";
                 axios
                     .put(url, {
-                        id: this.idPersona,
-                           numero: this.numero,
-                        nombrecompleto: this.nombrecompleto,
+                        id:this.idPersona,
+                        numero:this.numero,
+                        nombres:this.nombres,
                         apellidos:this.apellidos,
                         direccion:this.direccion,
                         telefono:this.telefono,
@@ -318,35 +307,32 @@
                         this.titulo = "Registrar Libro";
                         this.accion = 0;
                         this.limpiar();
-
                         break;
 
                     case "editar":
                         this.titulo = "Editar Libro";
                         this.accion = 1;
                         this.idPersona = data["id"];
-                          this.numero=data["numero"];
-                        this.nombrecompleto = data["nombrecompleto"];
+                        this.numero=data["numero"];
+                        this.nombres = data["nombres"];
                         this.apellidos = data["apellidos"];
                         this.direccion = data["direccion"];
                         this.telefono = data["telefono"];
                         this.email = data["email"];
                         this.documento = data["documento"];
                         break;
-
                     default:
+
                         break;
                 }
-
                 this.modal = 1;
             },
             cerrarModal() {
                 this.modal = 0;
             },
             limpiar() {
-                this.nombrecompleto = "";
+                this.nombres = "";
             },
-
             mensaje(msj) {
                 Swal.fire({
                     position: "center",
@@ -366,17 +352,14 @@
                 if (!this.pagination.to) {
                     return [];
                 }
-
                 var from = this.pagination.current_page - this.offset;
                 if (from < 1) {
                     from = 1;
                 }
-
                 var to = from + this.offset * 2;
                 if (to >= this.pagination.last_page) {
                     to = this.pagination.last_page;
                 }
-
                 var pagesArray = [];
                 while (from <= to) {
                     pagesArray.push(from);
@@ -390,7 +373,6 @@
             this.ListarPersona(1, this.criterio, this.buscar);
         }
     };
-
 </script>
 
 <style>
@@ -398,12 +380,10 @@
         width: 100% !important;
         position: absolute;
     }
-
     .mostrar {
         display: list-item !important;
         opacity: 1 !important;
         position: absolute !important;
         background-color: #bbb4b47a;
     }
-
 </style>

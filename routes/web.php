@@ -34,7 +34,7 @@ Route::post('idioma/eliminar', 'IdiomaController@destroy');
 
 Route::get('pais', 'PaisController@index');
 Route::get('selectPais', 'PaisController@getPais');
-Route::put('pais/actualizar', 'PaisController@update');
+Route::put('/pais/actualizar', 'PaisController@update');
 Route::post('/pais/eliminar', 'PaisController@destroy');
 
 Route::get('autor', 'AutoresController@index');
@@ -45,6 +45,7 @@ Route::post('/autor/eliminar', 'AutoresController@destroy');
 
 Route::get('libro', 'LibroController@index');
 Route::get('selectLibro', 'LibroController@getLibro');
+Route::get('GetLibro', 'LibroController@GetLibro');
 Route::post('/libro/registrar', 'LibroController@store');
 Route::put('libro/actualizar', 'LibroController@update');
 Route::post('/libro/eliminar', 'LibroController@destroy');
@@ -54,6 +55,7 @@ Route::get('selectPersona', 'PersonaController@getPersona');
 Route::post('persona/registrar', 'PersonaController@store');
 Route::put('persona/actualizar', 'PersonaController@update');
 Route::post('persona/eliminar', 'PersonaController@destroy');
-Route::get('selectTipoDoc', 'TipoDocumentoController@getTipoDoc');
 
 Route::get('solicitud', 'SolicitudController@index');
+Route::post('/solicitud/registrar', 'SolicitudController@store');
+// Route::post('/solicitud/eliminar', 'SolicitudController@destroy');

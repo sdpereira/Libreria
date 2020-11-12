@@ -11,7 +11,8 @@
             <div class="card-header">
                 <i class="fa fa-bookmark"></i>
                 Autores
-                <button type="button" class="btn btn-primary" data-toggle="modal" @click="abrirModal('guardar')">
+                <button type="button" class="btn btn-dark" data-toggle="modal"
+                    @click="abrirModal('guardar')">
                     <i class="icon-plus"></i>
                     &nbsp;Nuevo
                 </button>
@@ -35,7 +36,7 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Sucursales</th>
+                            <th>País</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -48,73 +49,56 @@
                                     <i class="icon-pencil"></i>
                                 </button>
                                 &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="EliminarPais(objeto)">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" @click="EliminarAutores(objeto)">
                                     <i class="icon-trash"></i>
                                 </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <nav>
-                <ul class="pagination">
-                    <li class="page-item" v-if="pagination.current_page > 1">
-                    <a
-                    class="page-link"
-                    href="#"
-                    @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)"
-                    >Ant</a>
-                    </li>
-                    <li
-                    class="page-item"
-                    v-for="page in pagesNumber"
-                    :key="page"
-                    :class="[page == isActived ? 'active' : '']"
-                    >
-                    <a
-                    class="page-link"
-                    href="#"
-                    @click.prevent="cambiarPagina(page,buscar,criterio)"
-                    v-text="page"
-                    ></a>
-                 </li>
-                 <li class="page-item" v-if="pagination.current_page < pagination.last_page">
-                    <a
-                    class="page-link"
-                    href="#"
-                    @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
-                    >Sig</a>
-                        </li>
-                    </ul>
-            </nav>
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" v-if="pagination.current_page > 1">
+                                <a class="page-link" href="#"
+                                    @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
+                            </li>
+                            <li class="page-item" v-for="page in pagesNumber" :key="page"
+                                :class="[page == isActived ? 'active' : '']">
+                                <a class="page-link" href="#" @click.prevent="cambiarPagina(page,buscar,criterio)"
+                                    v-text="page"></a>
+                            </li>
+                            <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                <a class="page-link" href="#"
+                                    @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)">Sig</a>
+                            </li>
+                        </ul>
+                    </nav>
             </div>
         </div>
     </div>
     <!--Inicio del modal agregar/actualizar-->
-    <div class="modal fade" id="modalNuevo" :class="{ mostrar: modal }" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="modalNuevo" :class="{ mostrar: modal }" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-primary modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" v-text="titulo"></h4>
                     <button type="button" class="close" @click="cerrarModal" aria-label="Close">
-                        <span aria-hidden="true">X</span>
+                        <span aria-hidden="true">x</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                         <div class="form-group row">
-                            <label class="col-md-3 form-control-label" for="text-input">
-                                Nombre
-                            </label>
+                            <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
                                 <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre de la sucursal" />
-                                <span class="help-block">
-                                    (*) Ingrese el nombre del autor
-                                </span>
+                                <span class="help-block">(*) Ingrese el nombre del autor</span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">
-                                Empresa
+                                País
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" v-model="id_pais" id="exampleFormControlSelect1">
@@ -126,15 +110,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="cerrarModal" data-dismiss="modal">
-                        Cerrar
-                    </button>
-                    <button v-show="accion == 0" type="button" @click="RegistrarAutores" class="btn btn-primary">
-                        Guardar
-                    </button>
-                    <button v-show="accion" type="button" @click="ActualizarAutores" class="btn btn-primary">
-                        Actualizar
-                    </button>
+                    <button type="button"  @click="cerrarModal" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button v-show="accion == 0" type="button" @click="RegistrarAutores" class="btn btn-primary">Guardar</button>
+                    <button v-show="accion" type="button" @click="ActualizarAutores" class="btn btn-primary">Actualizar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -159,7 +137,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Cerrar
                     </button>
-                    <button type="button" @click="EliminarPais" class="btn btn-danger">
+                    <button type="button" @click="EliminarAutores" class="btn btn-danger">
                         Eliminar
                     </button>
                 </div>
@@ -183,7 +161,6 @@ export default {
             modal: 0,
             titulo: '',
             accion: 0,
-
             arrayPais: [],
             id_pais: 0,
             // variables de pagination
@@ -226,7 +203,7 @@ export default {
         },
         getPais() {
             let me = this
-            var url = '/selectPais'
+            var url = '/selectPais';
             axios
                 .get(url)
                 .then(function (response) {
@@ -234,29 +211,29 @@ export default {
                     me.arrayPais = respuesta.pais;
                 })
                 .catch(function (error) {
-                    console.log(error)
+                    console.log(error);
                 })
         },
         RegistrarAutores() {
-            let me = this
-            var url = '/autor/registrar'
+            let me = this;
+            var url = '/autor/registrar';
             axios
                 .post(url, {
                     nombre: this.nombre,
                     id_pais: this.id_pais,
                 })
                 .then(function (response) {
-                    me.mensaje('Se guardo correctamente')
-                    me.ListarAutores()
-                    me.cerrarModal()
+                    me.ListarAutores();
+                    me.mensaje('Se guardó correctamente');
+                    me.cerrarModal();
                 })
-                .catch(function (error) {
-                    console.log(error)
+                  .catch(function (error) {
+                    console.log(error);
                 })
         },
         ActualizarAutores() {
             let me = this
-            var url = '/autor/actualizar'
+            var url = '/autor/actualizar';
             axios
                 .put(url, {
                     id: this.idAutores,
@@ -264,16 +241,16 @@ export default {
                     id_pais: this.id_pais,
                 })
                 .then(function (response) {
-                    me.ListarAutores()
-                    me.mensaje('Se actualizo correctamente')
-                    me.cerrarModal()
+                    me.ListarAutores();
+                    me.mensaje('Se actualizo correctamente');
+                    me.cerrarModal();
                 })
                 .catch(function (error) {
-                    console.log(error)
+                    console.log(error);
                 })
         },
 
-        EliminarPais(data = []) {
+        EliminarAutores(data = []) {
             let me = this
             Swal.fire({
                 title: '¿Está seguro de eliminarlo?',
@@ -292,11 +269,8 @@ export default {
                             id: data['id'],
                         })
                         .then(function (response) {
-                            me.ListarAutores()
-                            Swal.fire({
-                                title: '¡Se elimino correctamente!',
-                                icon: 'success',
-                            })
+                            me.ListarAutores();
+
                         })
                         .catch(function (error) {
                             console.log(error)
@@ -308,9 +282,9 @@ export default {
         abrirModal(accion, data = []) {
             switch (accion) {
                 case 'guardar':
-                    this.titulo = 'Registrar autor'
-                    this.accion = 0
-                    this.limpiar()
+                    this.titulo = 'Registrar autor';
+                    this.accion = 0;
+                    this.limpiar();
                     break
                 case 'editar':
                     this.titulo = 'Editar autor'
@@ -328,9 +302,9 @@ export default {
             this.modal = 0
         },
         limpiar() {
-            this.idAutores = data['id'];
-            this.nombre = data['nombre'];
-            this.id_pais = data['id'];
+           
+            this.nombre = "";
+            this.id_pais ="";
         },
         mensaje(msj) {
             Swal.fire({
@@ -340,17 +314,9 @@ export default {
                 showConfirmButton: false,
                 timer: 2000,
             })
-        },
-        mensaje1() {
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Se elimino correctamente',
-                showConfirmButton: false,
-                timer: 2000,
-            })
-        },
+        }
     },
+
     computed: {
         isActived: function () {
             return this.pagination.current_page
@@ -374,14 +340,16 @@ export default {
                 from++
             }
             return pagesArray
-        },
+        }
     },
     mounted() {
         console.log('Component mounted.')
         this.getPais();
         this.ListarAutores(1, this.criterio, this.buscar)
-    },
-}
+    }
+};
+
+
 </script>
 
 <style>

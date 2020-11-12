@@ -8,13 +8,13 @@ class PersonaController extends Controller
 {
     public function index(Request $request)
     {
-        $buscar   = $request->nombrecompleto;
+        $buscar   = $request->nombres;
         $criterio = $request->criterio;
-        $persona     = Persona::orderBy('nombrecompleto', 'asc')->get();
+        $persona     = Persona::orderBy('nombres', 'asc')->get();
         if ($buscar == '') {
-            $persona = Persona::orderBy('nombrecompleto', 'asc')->paginate(5);
+            $persona = Persona::orderBy('nombres', 'asc')->paginate(5);
         } else {
-            $persona = Persona::where('criterio', '=', $buscar) - orderBy('nombrecompleto', 'asc')->paginate(5);
+            $persona = Persona::where('criterio', '=', $buscar) - orderBy('nombres', 'asc')->paginate(5);
         }
         return [
             'pagination' => [
@@ -31,10 +31,10 @@ class PersonaController extends Controller
     }
     public function getPersona(Request $request)
     {
-        $persona = Persona::select('id', 'nombrecompleto')
-            ->orderBy('nombrecompleto', 'asc')->get();
+        $persona = Persona::select('id','nombres','apellidos','nomCom')
+            ->orderBy('nombres', 'asc')->get();
         return [
-            'persona' => $persona
+            'persona' => $persona,
         ];
     }
 
@@ -43,7 +43,8 @@ class PersonaController extends Controller
         $persona         = new Persona();
         $persona->documento = $request->documento;
         $persona->numero = $request->numero;
-        $persona->nombrecompleto = $request->nombrecompleto;
+        $persona->nombres = $request->nombres;
+          $persona->apellidos = $request->apellidos;
         $persona->direccion = $request->direccion;
         $persona->telefono = $request->telefono;
         $persona->email = $request->email;
@@ -55,7 +56,8 @@ class PersonaController extends Controller
         $persona         = Persona::findOrFail($request->id);
         $persona->documento = $request->documento;
         $persona->numero = $request->numero;
-        $persona->nombrecompleto = $request->nombrecompleto;
+        $persona->nombres = $request->nombres;
+          $persona->apellidos = $request->apellidos;
         $persona->direccion = $request->direccion;
         $persona->telefono = $request->telefono;
         $persona->email = $request->email;
